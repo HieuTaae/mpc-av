@@ -37,6 +37,8 @@ int main() {
                     double v = j[1]["speed"];
 
                     int waypnt_num = ptsx.size();
+
+                    // Pre-defined waypoints in vehicle coordinate system
                     Eigen::VectorXd waypnt_x(waypnt_num);
                     Eigen::VectorXd waypnt_y(waypnt_num);
 
@@ -64,7 +66,7 @@ int main() {
                     msgJson["steering_angle"] = steer_value / deg2rad(25);
                     msgJson["throttle"] = throttle_value;
 
-                    // Display the MPC predicted trajectory
+                    // Predicted heading from solver solution
                     vector<double> mpc_x_vals;
                     vector<double> mpc_y_vals;
 
@@ -78,7 +80,7 @@ int main() {
                     msgJson["mpc_x"] = mpc_x_vals;
                     msgJson["mpc_y"] = mpc_y_vals;
 
-                    // Display the waypoints/reference line
+                    // Reference heading
                     vector<double> next_x_vals;
                     vector<double> next_y_vals;
 

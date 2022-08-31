@@ -119,21 +119,21 @@ void Cost::operator()(Cost::ADvector &cost, const Cost::ADvector &vars) {
 
     // Updates with state cost
     for (int t = 0; t < N; ++t) {
-        cost[0] += CppAD::pow(vars[v_start + t] - v_ref, 2);
-        cost[0] += 10 * CppAD::pow(vars[cte_start + t], 2);
-        cost[0] += 1500 * CppAD::pow(vars[epsi_start + t], 2);
+        cost[0] += 0.02 * CppAD::pow(vars[v_start + t] - v_ref, 2);
+        cost[0] += 0.1 * CppAD::pow(vars[cte_start + t], 2);
+        cost[0] += 30 * CppAD::pow(vars[epsi_start + t], 2);
     }
 
     // Updates with input cost
     for (int t = 0; t < N - 1; ++t) {
-        cost[0] += 2000 * CppAD::pow(vars[delta_start + t], 2);
-        cost[0] += 40 * CppAD::pow(vars[a_start + t], 2);
+        cost[0] += 40 * CppAD::pow(vars[delta_start + t], 2);
+        cost[0] += CppAD::pow(vars[a_start + t], 2);
     }
 
     // Updates with smooth input cost
     for (int t = 0; t < N - 2; ++t) {
-        cost[0] += 7000 * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
-        cost[0] += 50 * CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
+        cost[0] += 130 * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
+        cost[0] += CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
     }
 
     // Initial states
